@@ -2,6 +2,17 @@ const GRID_WIDTH = 960;
 
 let grid = document.querySelector("#grid");
 
+function darken() {
+    this.style.opacity = parseFloat(this.style.opacity) + 0.1;
+}
+
+function fillColor() {
+    this.style.backgroundColor = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
+    this.style.opacity = 0.1;
+    this.removeEventListener("mouseenter", fillColor);
+    this.addEventListener("mouseenter", darken);
+}
+
 function createGrid(squares) {
     let dim = Math.floor(GRID_WIDTH / squares);
     grid.style.width = `${dim * squares}px`;
@@ -14,9 +25,7 @@ function createGrid(squares) {
             cell.style.borderWidth = "1px";
             cell.style.borderColor = "black";
             cell.style.boxSizing = "border-box";
-            cell.addEventListener("mouseenter", () => {
-                cell.style.backgroundColor = "blue";
-            })
+            cell.addEventListener("mouseenter", fillColor);
             grid.appendChild(cell);
         }
     }   
